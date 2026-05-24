@@ -49,3 +49,5 @@ adapter:
 
 logging:
   seed: 42  # changed from 0 for slightly more varied outputs
+  # tip: bump seed each run to avoid getting the same outputs back-to-back
+  log_level: info
