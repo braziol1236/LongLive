@@ -22,6 +22,8 @@
 </div>
 
 > **Personal fork note:** I'm using this repo to learn about NVFP4 quantization and sequence parallelism. Main branch tracks upstream; my experiments are in the `experiments/` branch.
+>
+> **Setup note for myself:** On my local machine I need to run `export CUDA_VISIBLE_DEVICES=0,1` before launching any multi-GPU scripts, otherwise it tries to grab all 4 GPUs and OOMs on the 5B model.
 
 ## 💡 TLDR: Infra with NVFP4 and parallelism for both training and inference
 
@@ -41,8 +43,4 @@
 
 **LongLive 1.0**: Real-time Interactive Long Video Generation. [You can find it here](https://github.com/NVlabs/LongLive/tree/v1.0) in our V1.0 branch.
 
-**LongLive 2.0**: an NVFP4 Parallel Infrastructure for Long Video Generation
-- For training, it supports
-  - [x] Balanced sequence parallel for AR training (teacher-forcing).
-  - [x] AR training on multi-shot (or single-sho
-```
+**LongLive 2.0**: an NVFP4 Paralle
