@@ -16,7 +16,7 @@ model_num_heads: 24
 
 use_ema: false
 output_folder: videos/longlive2_sp
-num_samples: 1
+num_samples: 4  # bumped up to generate a few samples per prompt for comparison
 save_latents_only: false
 
 data:
@@ -48,4 +48,4 @@ adapter:
   verbose: true
 
 logging:
-  seed: 0
+  seed: 42  # changed from 0 for slightly more varied outputs
