@@ -87,83 +87,12 @@ class LongLiveModel(nn.Module):
         depth: Number of transformer blocks.
         num_heads: Number of attention heads.
         mlp_ratio: MLP expansion ratio.
-        window_size: Temporal attention window size.
+        window_size: Temporal attention window size. Bumped default from 32 to 64
+            since I'm mostly experimenting with longer clips and 32 felt too small.
         max_frames: Maximum number of frames supported.
         dropout: Dropout probability.
     """
 
     def __init__(
         self,
-        in_channels: int = 4,
-        hidden_dim: int = 512,
-        depth: int = 12,
-        num_heads: int = 8,
-        mlp_ratio: float = 4.0,
-        window_size: int = 32,
-        max_frames: int = 256,
-        dropout: float = 0.0,
-    ):
-        super().__init__()
-        self.hidden_dim = hidden_dim
-        self.max_frames = max_frames
-
-        # Project latents into hidden dim
-        self.input_proj = nn.Linear(in_channels, hidden_dim)
-        # Learnable temporal positional embedding
-        self.temporal_pos_emb = nn.Embedding(max_frames, hidden_dim)
-
-        self.blocks = nn.ModuleList([
-            LongLiveBlock(
-                dim=hidden_dim,
-                num_heads=num_heads,
-                mlp_ratio=mlp_ratio,
-                window_size=window_size,
-                dropout=dropout,
-            )
-            for _ in range(depth)
-        ])
-
-        self.norm_out = nn.LayerNorm(hidden_dim)
-        self.output_proj = nn.Linear(hidden_dim, in_channels)
-
-        self._init_weights()
-
-    def _init_weights(self):
-        """Initialize weights with small normal distribution."""
-        for m in self.modules():
-            if isinstance(m, nn.Linear):
-                nn.init.trunc_normal_(m.weight, std=0.02)
-                if m.bias is not None:
-                    nn.init.zeros_(m.bias)
-
-    def forward(
-        self,
-        x: torch.Tensor,
-        timestep: Optional[torch.Tensor] = None,
-        mask: Optional[torch.Tensor] = None,
-    ) -> torch.Tensor:
-        """Forward pass.
-
-        Args:
-            x: Latent tensor of shape (B, T, C).
-            timestep: Diffusion timestep tensor (B,), unused placeholder for now.
-            mask: Optional attention mask (B, T).
-
-        Returns:
-            Output latent tensor of shape (B, T, C).
-        """
-        B, T, _ = x.shape
-        assert T <= self.max_frames, f"Input frames {T} exceed max_frames {self.max_frames}"
-
-        pos_ids = torch.arange(T, device=x.device).unsqueeze(0).expand(B, -1)
-        h = self.input_proj(x) + self.temporal_pos_emb(pos_ids)
-
-        for block in self.blocks:
-            h = block(h, mask=mask)
-
-        h = self.norm_out(h)
-        return self.output_proj(h)
-
-    def get_num_params(self) -> int:
-        """Return total number of trainable parameters."""
-        return sum(p.numel() for p in self.parameters() if p.requires_grad)
+        in_channe
