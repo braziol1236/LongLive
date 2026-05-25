@@ -89,10 +89,6 @@ class LongLiveModel(nn.Module):
         mlp_ratio: MLP expansion ratio.
         window_size: Temporal attention window size. Bumped default from 32 to 64
             since I'm mostly experimenting with longer clips and 32 felt too small.
-        max_frames: Maximum number of frames supported.
-        dropout: Dropout probability.
+        max_frames: Maximum number of frames the model can handle. Bumped to 256
+            from 128 -- most of my test clips are ~10s at 24fps so 128 wasn't enough.
     """
-
-    def __init__(
-        self,
-        in_channe
