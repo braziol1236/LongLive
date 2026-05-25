@@ -46,3 +46,6 @@ adapter:
 
 logging:
   seed: 42 # changed from 0 for slightly more interesting default outputs
+  # set to true to save a copy of this config alongside each output video, handy
+  # for keeping track of what settings produced what results
+  save_config_with_output: true
