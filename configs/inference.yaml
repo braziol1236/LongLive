@@ -49,3 +49,6 @@ logging:
   # set to true to save a copy of this config alongside each output video, handy
   # for keeping track of what settings produced what results
   save_config_with_output: true
+  # log to a simple text file so I can review runs without digging through terminal history
+  log_to_file: true
+  log_file: logs/inference.log
