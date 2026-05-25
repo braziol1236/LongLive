@@ -50,4 +50,5 @@ adapter:
 logging:
   seed: 1337  # using 1337 as my default seed, feels luckier than 42 tbh
   # tip: bump seed each run to avoid getting the same outputs back-to-back
+  # seeds I've tried: 1337, 2024, 9999 -- 9999 gave noticeably better motion on my test prompts
   log_level: info
