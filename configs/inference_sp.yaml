@@ -48,6 +48,6 @@ adapter:
   verbose: true
 
 logging:
-  seed: 42  # changed from 0 for slightly more varied outputs
+  seed: 1337  # using 1337 as my default seed, feels luckier than 42 tbh
   # tip: bump seed each run to avoid getting the same outputs back-to-back
   log_level: info
